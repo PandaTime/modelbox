@@ -26,11 +26,24 @@ class Database:
                    cost_of_shipping_to_china=cost_of_shipping_to_china)
         self.con.execute(clause)
 
+    def create_road(self, from_city_id, to_city_id, duration, distance):
+        clause = self.meta.tables['cost_of_shipping'].insert(). \
+            values(from_city_id=from_city_id, to_city_id=to_city_id,
+                   duration=duration, distance=distance)
+        self.con.execute(clause)
+
     def create_dealer(self):
         pass
 
-    def read(self):
-        pass
+    def read_city(self, city_id):
+        cities = self.meta.tables['cities']
+        clause = cities.select().where(cities.c.city_id == city_id)
+        return self.con.execute(clause)
+
+    def read_warehouse(self, warehouse_id):
+        warehouses = self.meta.tables['regional_warehouses']
+        clause = warehouses.select().where(warehouses.c.warehouse_id == warehouse_id)
+        return self.con.execute(clause)
 
     def update(self):
         pass
