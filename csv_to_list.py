@@ -1,5 +1,6 @@
 import csv
 from database.database import Database
+from warehouse.warehouses import Warehouses
 
 
 class CSVFile:
@@ -66,6 +67,26 @@ class CSVFile:
         out_file.close()
 
 
+def create_warehouses(centroids, db):
+    for warehouse in centroids.tolist():
+        db.create_warehouse(warehouse[0], warehouse[1])
+
+
+def create_cities(labels, europec, db):
+    for warehouse_id, city in zip(labels, europec.values):
+        longitude = float(city[1])
+        latitude = float(city[2])
+        population = int(city[11])
+        name = city[5]
+        country = city[9]
+        port_id = int(city[14])
+        # db.create_port(port_id)
+        db.create_city(name, longitude, latitude, population, country, port_id, int(warehouse_id))
+
+
 if __name__ == "__main__":
-    csv = CSVFile()
-    csv.read()
+    db = Database()
+    warehouses = Warehouses()
+    centroids, labels, europec = warehouses.get_warehouses('World_Cities.csv', 16)
+    create_warehouses(centroids, db)
+    create_cities(labels, europec, db)

@@ -1,4 +1,4 @@
-Longitude,Lattitude,FID,ObjectID,CITY_NAME,GMI_ADMIN,ADMIN_NAME,FIPS_CNTRY,CNTRY_NAME,STATUS,POP,POP_RANK,POP_CLASS,PORT_ID,LABEL_FLAG
+Longitude,Latitude,FID,ObjectID,CITY_NAME,GMI_ADMIN,ADMIN_NAME,FIPS_CNTRY,CNTRY_NAME,STATUS,POP,POP_RANK,POP_CLASS,PORT_ID,LABEL_FLAG
 16.1849973771,54.1860030148,1001,1500,Koszalin,POL-KSZ,Koszalin,PL,Poland,Provincial capital,107450,5,"100,000 to 249,999",0,1
 41.2920003991,39.9040020137,1002,1200,Erzurum,TUR-ERR,Erzurum,TU,Turkey,Provincial capital,420691,4,"250,000 to 499,999",0,1
 8.7499984424,36.5000039744,1003,1000,Jendouba,TUN-JND,Jundubah,TS,Tunisia,Provincial capital,51408,6,"50,000 to 99,999",0,0
@@ -2105,7 +2105,7 @@ Longitude,Lattitude,FID,ObjectID,CITY_NAME,GMI_ADMIN,ADMIN_NAME,FIPS_CNTRY,CNTRY
 2.1200043652,13.5140040175,564,910,Niamey,NER-NIA,Niamey,NG,Niger,National and provincial capital,774235,3,"500,000 to 999,999",0,1
 -6.4089985999,10.4810039589,565,766,Tingrela,CIV-TNG,Tengrela,IV,Cote d'Ivoire,Provincial capital,-999,7,"Less than 50,000",0,0
 -100.9799997185,22.1519970027,566,255,San Luis Potosi,MEX-SLP,San Luis Potosi,MX,Mexico,Provincial capital,677704,3,"500,000 to 999,999",0,1
--69.3080006289,18.456003047,567,434,San Pedro De Macoris,DOM-SPD,San Pedro de Macor¡s,DR,Dominican Republic,Provincial capital,217899,5,"100,000 to 249,999",11030,0
+-69.3080006289,18.456003047,567,434,San Pedro De Macoris,DOM-SPD,San Pedro de Macor??s,DR,Dominican Republic,Provincial capital,217899,5,"100,000 to 249,999",11030,0
 -16.9239956143,14.8049999611,568,698,Thies,SEN-THI,Thies,SG,Senegal,Provincial capital,252320,4,"250,000 to 499,999",0,1
 -6.488999689,9.5220000083,569,767,Boundiali,CIV-BNL,Boundiali,IV,Cote d'Ivoire,Provincial capital,38878,7,"Less than 50,000",0,1
 5.2460014411,13.0570020279,570,911,Sokoto,NGA-SOK,Sokoto,NI,Nigeria,Provincial capital,563861,3,"500,000 to 999,999",0,1
