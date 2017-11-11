@@ -1,5 +1,7 @@
 import sqlalchemy
 
+from sqlalchemy import func, text, select
+
 
 class Database:
 
@@ -10,7 +12,7 @@ class Database:
         self.meta = sqlalchemy.MetaData(bind=self.con, reflect=True)
 
     def create_warehouse(self, longitude, latitude, capacity=88, cost_of_service=5000):
-        clause = self.meta.tables['regional_warehouses'].insert().values(
+        clause = self.meta.tables['warehouses'].insert().values(
             longitude=longitude, latitude=latitude, capacity=capacity, cost_of_service=cost_of_service)
         self.con.execute(clause)
 
@@ -34,6 +36,13 @@ class Database:
 
     def create_dealer(self):
         pass
+
+    def insert_factory(self):
+        func.insert_factory(12,12,100)
+
+    def get_truck(self, name, cost):
+        return self.con.execute(text("SELECT get_truck(('{}', {}))".
+                                     format(name, cost)).execution_options(autocommit=True)).fetchall()
 
     def read_city(self, city_id):
         cities = self.meta.tables['cities']

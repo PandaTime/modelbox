@@ -3,6 +3,7 @@ from database.database import Database
 from warehouse.warehouses import Warehouses
 from roads.roads import Road
 
+
 class CSVFile:
 
     european_countries = {
@@ -96,10 +97,11 @@ def create_roads(db):
                 duration, distance = Road.find_road(longitude_from, latitude_from, longitude_to, latitude_to)
                 db.create_road(warehouse_id, city_id, duration, distance)
 
+
 if __name__ == "__main__":
     db = Database()
     warehouses = Warehouses()
     centroids, labels, europec = warehouses.get_warehouses('World_Cities.csv', 16)
     create_warehouses(centroids, db)
-    create_cities(labels, europec, db)
-    create_roads(db)
+    # create_cities(labels, europec, db)
+    # create_roads(db)
