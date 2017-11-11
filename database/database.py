@@ -37,8 +37,8 @@ class Database:
     def create_dealer(self):
         pass
 
-    def insert_factory(self):
-        func.insert_factory(12,12,100)
+    # def insert_factory(self):
+    #     func.insert_factory(12,12,100)
 
     def get_truck(self, name, cost):
         return self.con.execute(text("SELECT get_truck(('{}', {}))".
@@ -48,6 +48,18 @@ class Database:
         cities = self.meta.tables['cities']
         clause = cities.select().where(cities.c.city_id == city_id)
         return self.con.execute(clause)
+
+    def update_city(self, city_id, name, longitude, latitude, population, country, port_id, warehouse_id):
+        clause = self.meta.tables['cities'].update().values(
+            name=name, longitude=longitude, latitude=latitude, population=population,
+            country=country, port_id=port_id, warehouse_id=warehouse_id).where(
+            self.meta.tables['cities'].c.city_id == city_id)
+        self.con.execute(clause)
+
+    def delete_factory(self, factory_id):
+        factories = self.meta.tables['factories']
+        clause = factories.delete().where(factories.c.factory_id == factory_id)
+        self.con.execute(clause)
 
     def read_warehouse(self, warehouse_id):
         warehouses = self.meta.tables['regional_warehouses']
