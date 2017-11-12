@@ -1,6 +1,6 @@
 import sqlalchemy
 
-from sqlalchemy import func, text, select
+from sqlalchemy import func, text, select, or_
 
 
 class Database:
@@ -29,20 +29,15 @@ class Database:
         self.con.execute(clause)
 
     def create_road(self, from_city_id, to_city_id, duration, distance):
-        clause = self.meta.tables['cost_of_shipping'].insert(). \
+        clause = self.meta.tables['roads'].insert(). \
             values(from_city_id=from_city_id, to_city_id=to_city_id,
                    duration=duration, distance=distance)
         self.con.execute(clause)
 
-    def create_dealer(self):
-        pass
-
-    # def insert_factory(self):
-    #     func.insert_factory(12,12,100)
-
     def get_truck(self, name, cost):
-        return self.con.execute(text("SELECT get_truck(('{}', {}))".
-                                     format(name, cost)).execution_options(autocommit=True)).fetchall()
+        return self.con.execute(
+            text("SELECT get_truck(('{}', {}))".
+                 format(name, cost)).execution_options(autocommit=True)).fetchall()
 
     def read_city(self, city_id):
         cities = self.meta.tables['cities']
@@ -62,8 +57,13 @@ class Database:
         self.con.execute(clause)
 
     def read_warehouse(self, warehouse_id):
-        warehouses = self.meta.tables['regional_warehouses']
+        warehouses = self.meta.tables['warehouses']
         clause = warehouses.select().where(warehouses.c.warehouse_id == warehouse_id)
+        return self.con.execute(clause)
+
+    def read_road(self, from_city, to_city):
+        roads = self.meta.tables['roads']
+        clause = roads.select().where(roads.c.from_city_id == from_city).where(roads.c.to_city_id == to_city)
         return self.con.execute(clause)
 
     def update(self):
