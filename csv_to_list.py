@@ -81,7 +81,10 @@ def create_cities(labels, europec, db):
         name = city[5]
         country = city[9]
         port_id = int(city[14])
-        # db.create_port(port_id)
+        if port_id is not 0:
+            db.create_port(port_id)
+        else:
+            port_id = None
         db.create_city(name, longitude, latitude, population, country, port_id, int(warehouse_id))
 
 
@@ -90,12 +93,34 @@ def create_roads(db):
         for row in db.read_city(city_id):
             longitude_to = row[4]
             latitude_to = row[3]
-            warehouse_id = row[7]
+            warehouse_id = row[6]
+            print('iteration {}'.format(city_id))
+            print('city {}'.format(row[1]))
+            print('warehouse {}'.format(warehouse_id))
             for inner_row in db.read_warehouse(warehouse_id):
                 longitude_from = inner_row[1]
                 latitude_from = inner_row[2]
-                duration, distance = Road.find_road(longitude_from, latitude_from, longitude_to, latitude_to)
-                db.create_road(warehouse_id, city_id, duration, distance)
+
+                create_road = False
+                try:
+                    road = db.read_road(warehouse_id, city_id).fetchone()
+                    if road is None:
+                        create_road = True
+                        print('NEW ROAD, city id is {}'.format(city_id))
+                except TypeError:
+                    print('NEW ROAD, city id is {}'.format(city_id))
+                    create_road = True
+
+                if create_road:
+                    try:
+                        duration, distance = Road.find_road(longitude_from, latitude_from, longitude_to, latitude_to)
+                    except Exception as e:
+                        print(e)
+                        break
+
+                    print('from ({};{}) to ({};{})\nDistance: {}\n Duration: {}'.
+                          format(longitude_from, latitude_from, longitude_to, latitude_to, duration, distance))
+                    db.create_road(warehouse_id, city_id, duration, distance)
 
 
 if __name__ == "__main__":
@@ -103,5 +128,6 @@ if __name__ == "__main__":
     warehouses = Warehouses()
     centroids, labels, europec = warehouses.get_warehouses('World_Cities.csv', 16)
     create_warehouses(centroids, db)
-    # create_cities(labels, europec, db)
-    # create_roads(db)
+    create_cities(labels, europec, db)
+    for i in range(0, 50):
+        create_roads(db)
