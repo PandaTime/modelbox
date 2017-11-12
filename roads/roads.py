@@ -21,9 +21,17 @@ class Road:
         return js['routes'][0]['distance']
 
     @staticmethod
+    def get_code(js):
+        return js['code']
+
+    @staticmethod
     def find_road(longitude_from, latitude_from, longitude_to, latitude_to):
         json_response = Road.get_json_response(longitude_from, latitude_from, longitude_to, latitude_to)
         js = json.loads(json_response.decode('utf8').replace("'", '"'))
+        returncode = Road.get_code(js)
+        print('returncode: {}\n\n'.format(returncode))
+        if 'Ok' not in returncode:
+            return 0, 0
         return Road.get_duration(js), Road.get_distance(js)
 
     @staticmethod
