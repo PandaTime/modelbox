@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import render_template
 from roads.roads import Road
 
 
@@ -8,9 +9,15 @@ class Application:
         self.app = Flask(__name__)
         self.add_routing()
 
+    def index(self):
+        return render_template("index.html")
+
     def add_routing(self):
         self.add_endpoint(endpoint='/get_route/<longitude_from>/<latitude_from>/<longitude_to>/<latitude_to>',
                           endpoint_name='main', handler=Road.get_duration_and_distance)
+
+        self.add_endpoint(endpoint='/index',
+                      endpoint_name='index', handler=self.index)
 
     def run(self):
         self.app.run()
