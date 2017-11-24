@@ -1,6 +1,8 @@
 import json
 import random
 
+from threading import Thread
+from time import sleep
 from flask import Flask
 from flask import render_template
 from roads.roads import Road
@@ -53,6 +55,17 @@ def add_trailer(id, city_from, city_to, status, rfid, longitude, latitude):
     trailer = Trailer(id, city_from, city_to, status, rfid, longitude, latitude)
     trailer.acquire_telemetry()
     trailer.set_doors_open('closed')
+    thread = Thread(target=monitor, args=(1,))
+    thread.start()
+
+
+def monitor(number_of_trailer):
+    while True:
+        print('check trailer {}'.format(number_of_trailer))
+        sleep(1)
+
+
+
     trailers.append(trailer)
 
 cities = [
@@ -81,10 +94,7 @@ if __name__ == "__main__":
 
     print(len(cities))
 
-
     add_trailer('123', 'Essen', 'Dortmund', 'ADDED', 1234, 45.2, 23.4)
-
-    # add_contracts()
 
     app.run()
 
