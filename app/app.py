@@ -4,7 +4,7 @@ import random
 from flask import Flask
 from flask import render_template
 from roads.roads import Road
-from trailer.trailer import Contract
+from trailer.trailer import Trailer
 
 class Application:
 
@@ -19,7 +19,7 @@ class Application:
         return render_template("configure.html")
 
     def get_contracts(self):
-        return toJSON(contracts)
+        return toJSON(trailers)
 
     def add_routing(self):
         self.add_endpoint(endpoint='/get_route/<longitude_from>/<latitude_from>/<longitude_to>/<latitude_to>',
@@ -46,8 +46,8 @@ def toJSON(object):
 
 def add_contracts():
     for number in range(0,50):
-        contract = Contract(str(number), cities[random.randint(0,47)], cities[random.randint(0,47)], 'OK')
-        contracts.append(contract)
+        trailer = Trailer(str(number), cities[random.randint(0,47)], cities[random.randint(0,47)], 'OK')
+        trailers.append(trailer)
 
 
 cities = [
@@ -69,7 +69,7 @@ cities = [
     'Goteborg', 'Hannover', 'Leipzig',
     'Duisburg'
 ]
-contracts = []
+trailers = []
 
 if __name__ == "__main__":
     app = Application()
