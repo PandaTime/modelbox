@@ -49,6 +49,11 @@ def add_contracts():
         trailer = Trailer(str(number), cities[random.randint(0,47)], cities[random.randint(0,47)], 'OK')
         trailers.append(trailer)
 
+def add_trailer(id, city_from, city_to, status, rfid, longitude, latitude):
+    trailer = Trailer(id, city_from, city_to, status, rfid, longitude, latitude)
+    trailer.acquire_telemetry()
+    trailer.set_doors_open('closed')
+    trailers.append(trailer)
 
 cities = [
     'London', 'Berlin' 'Madrid',
@@ -76,7 +81,10 @@ if __name__ == "__main__":
 
     print(len(cities))
 
-    add_contracts()
+
+    add_trailer('123', 'Essen', 'Dortmund', 'ADDED', 1234, 45.2, 23.4)
+
+    # add_contracts()
 
     app.run()
 
