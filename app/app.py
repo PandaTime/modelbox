@@ -4,7 +4,7 @@ import random
 from flask import Flask
 from flask import render_template
 from roads.roads import Road
-from contract.contract import Contract
+from trailer.trailer import Contract
 
 class Application:
 
@@ -31,7 +31,7 @@ class Application:
         self.add_endpoint(endpoint='/configure',
                           endpoint_name='configure', handler=self.configure)
 
-        self.add_endpoint(endpoint='/get_contracts', endpoint_name='get_contracts', handler=self.get_contracts)
+        self.add_endpoint(endpoint='/get_trailers', endpoint_name='get_trailers', handler=self.get_contracts)
 
     def run(self):
         self.app.run()

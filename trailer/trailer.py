@@ -1,6 +1,6 @@
 import json
 
-class Contract:
+class Trailer:
     def __init__(self, id, city_from, city_to, status):
         self.id = id
         self.city_from = city_from
