@@ -38,22 +38,22 @@ class Application:
     def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None):
         self.app.add_url_rule(endpoint, endpoint_name, handler)
 
-contracts = []
 
 def toJSON(object):
     return json.dumps(object, default=lambda o: o.__dict__,
                       sort_keys=True, indent=4)
 
+def add_contracts():
+    for number in range(0,50):
+        contract = Contract(str(number), 'from', 'to')
+        contracts.append(contract)
 
+contracts = []
 
 if __name__ == "__main__":
     app = Application()
 
-    contract = Contract('12345', 'from', 'to')
-    contracts.append(contract)
-
-    contract = Contract('qwerty', 'from1', 'to1')
-    contracts.append(contract)
+    add_contracts()
 
     app.run()
 
