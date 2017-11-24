@@ -1,4 +1,5 @@
 import json
+import random
 
 from flask import Flask
 from flask import render_template
@@ -45,13 +46,35 @@ def toJSON(object):
 
 def add_contracts():
     for number in range(0,50):
-        contract = Contract(str(number), 'from', 'to')
+        contract = Contract(str(number), cities[random.randint(0,47)], cities[random.randint(0,47)], 'OK')
         contracts.append(contract)
 
+
+cities = [
+    'London', 'Berlin' 'Madrid',
+    'Rome', 'Paris', 'Bucharest',
+    'Hamburg', 'Warsaw', 'Budapest',
+    'Barcelona', 'Vienna', 'Munich',
+    'Stockholm', 'Prague', 'Copenhagen',
+    'Dublin', 'Brussels', 'Naples',
+    'Birmingham', 'Cologne', 'Turin',
+    'Valencia', 'Marseille', 'Lodz',
+    'Krakow', 'Riga', 'Amsterdam',
+    'Athens', 'Seville', 'Palermo',
+    'Frankfurt', 'Zaragoza', 'Wroclaw',
+    'Glasgow', 'Genoa', 'Rotterdam',
+    'Essen', 'Dortmund', 'Oslo',
+    'Dusseldorf', 'Poznan', 'Helsinki',
+    'Bremen', 'Vilnius', 'Lisbon',
+    'Goteborg', 'Hannover', 'Leipzig',
+    'Duisburg'
+]
 contracts = []
 
 if __name__ == "__main__":
     app = Application()
+
+    print(len(cities))
 
     add_contracts()
 
